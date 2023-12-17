@@ -42,27 +42,30 @@ for (let person of student) {
         timlop = true;
     }
 } */
-// câu2
-// let arr1 = [0,2,4,6,8]
-// let arr2 = [1,3,5,7]
-// Duyệt 2 array trên và hiển thị ra màn hình những số lớn hơn 3.
-// Ghép 2 array kể trên lại thành 1 arry như sau: [0,2,4,6,8,2,3,5,7]
-// Ghép 2 array kể trên lại thành 1 arry như sau: [0,1,2,3,4,5,6,7,8]
-// arr1.forEach(item => {
-//     if (item > 3 ){
-//         console.log(item)
-//     }
-// });
+//  câu2
+ let arr1 = [0,2,4,6,8]
+ let arr2 = [1,3,5,7]
+//  Duyệt 2 array trên và hiển thị ra màn hình những số lớn hơn 3.
+//  Ghép 2 array kể trên lại thành 1 arry như sau: [0,2,4,6,8,1,3,5,7]
+//  Ghép 2 array kể trên lại thành 1 arry như sau: [0,1,2,3,4,5,6,7,8]
+/* arr1.forEach(item => {
+     if (item > 3 ){
+         console.log(item)
+     }
+ });
 
-// arr2.forEach(item => {
-//     if (item > 3 ){
-//         console.log(item)
-//     }
-// });
+ arr2.forEach(item => {
+     if (item > 3 ){
+         console.log(item)
+     }
+ });*/
+/*caub
+let twoArr=arr1.concat(arr2);
+console.log(twoArr)*/
+/*cauc  
+ let twoArr =arr1.concat(arr2).sort((a,b) => a-b);
 
-// let twoArr =arr1.concat(arr2).sort((a,b) => a-b);
-
-// console.log(mergeArr)
+  console.log(twoArr)*/
 
 
 /*

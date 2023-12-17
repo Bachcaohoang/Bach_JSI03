@@ -1,0 +1,22 @@
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.form{
+    text-align: center;
+    background-color: rgb(0, 255, 213);
+    width: 200px;
+    height: 200px;
+}
+.signup{
+width: 100px;
+height: 20px;
+border-radius: 20px;
+}
+ @media only screen and  (max-width:600px){ 
+    .form-container{
+        margin: 0 10px;
+    }
+    
+} 
