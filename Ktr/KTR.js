@@ -25,8 +25,8 @@ class Manager extends Employee{
         // console.log(" daaddad "+ Employee.salary);
     }
 }
-var nhut = new Employee("nhut", 1000000)
-var lam = new Manager("abc",34400000,"Tài chính kế toán")
+var KHOA = new Employee("KHOA", 1000000)
+var BACH = new Manager("BACH",34400000,"Tài chính kế toán")
 
-lam.displayInfo();
-nhut.displayInfo();
+BACH.displayInfo();
+KHOA.displayInfo();
