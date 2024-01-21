@@ -1,24 +1,23 @@
 /* head */
-.form{
-  background-image :url(back.jpg) ;
+/* form {
+  background-image: url(back.jpg);
   background-repeat: no-repeat;
   background-size: cover;
- 
 }
-body{
+
+body {
     display: flex;
     justify-content: center;
     align-items: center;
- 
 }
 
 .login{
-margin:12px ;
-border: 2px solid red; 
-display: flex;
-justify-content:space-around;
-
+  margin:12px ;
+  border: 2px solid red; 
+  display: flex;
+  justify-content:space-around;
 }
+
 .a{
   font-size: large;
   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
@@ -26,10 +25,10 @@ justify-content:space-around;
 .b{
   font-size: large;
   font-family:Arial, Helvetica, sans-serif   ;
-}
+} */
 
 /*head  */
-.form{
+/* .form{
     text-align: center;
     background-color: rgb(0, 255, 213);
     width: 400px;
@@ -41,7 +40,7 @@ justify-content:space-around;
 margin-left:20px ;
   border: 2px solid greenyellow;
   height: 19px;
-} 
+}  */
 
 
 

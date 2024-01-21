@@ -1,0 +1,90 @@
+<!-- editpost.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chỉnh sửa bài đăng</title>
+</head>
+
+<body>
+    <h1>Chỉnh sửa bài đăng</h1>
+
+    <form id="edit-post-form">
+        <input type="text" id="edit-post-title" placeholder="Title">
+        <textarea id="edit-post-content" rows="4" cols="50" placeholder="Content"></textarea>
+        <button type="submit">Lưu</button>
+    </form>
+
+    <script src="config.js"></script>
+    <script type="module">
+
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.2/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.5.2/firebase-analytics.js";
+        import { getAuth, signOut, onAuthStateChanged, } from 'https://www.gstatic.com/firebasejs/10.5.2/firebase-auth.js';
+        import {getFirestore, doc, getDoc, updateDoc, collection, query, where, getDocs, addDoc  } from 'https://www.gstatic.com/firebasejs/10.5.2/firebase-firestore.js';
+        
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+        const storage = getFirestore(app);
+        var uidDefault;
+
+        onAuthStateChanged(getAuth(), function (user) {
+            if (user) {
+                user.providerData.forEach((profile) => {
+                    uidDefault = profile.uid;
+                });
+            } 
+        });
+        // Lấy thông tin bài đăng từ Firestore và điền vào các trường chỉnh sửa
+        const urlParams = new URLSearchParams(window.location.search);
+        const postId = urlParams.get('postId');
+
+        const editPostForm = document.getElementById('edit-post-form');
+        const editPostTitle = document.getElementById('edit-post-title');
+        const editPostContent = document.getElementById('edit-post-content');
+
+        const postsCollection = collection(storage, 'posts');
+        const postDocRef = doc(postsCollection, postId);
+        getDoc(postDocRef)
+            .then((docSnapshot) => {
+                if (docSnapshot.exists()) {
+                    const postData = docSnapshot.data();
+                    editPostTitle.value = postData.title;
+                    editPostContent.value = postData.content;
+                } else {
+                    console.error('Bài đăng không tồn tại');
+                }
+            })
+            .catch((error) => {
+                console.error('Lỗi khi lấy dữ liệu bài đăng:', error);
+            });
+
+        // Xử lý sự kiện khi người dùng lưu chỉnh sửa
+        editPostForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const newPostTitle = editPostTitle.value;
+            const newPostContent = editPostContent.value;
+
+            // Cập nhật thông tin bài đăng vào Firestore
+            updateDoc(postDocRef, {
+                title: newPostTitle,
+                content: newPostContent,
+            })
+            .then(() => {
+                console.log('Chỉnh sửa bài đăng thành công');
+                // Chuyển trở lại trang chính hoặc trang hiển thị bài đăng
+                window.location.href = 'main.html'; // Thay đổi URL tùy thuộc vào trang chính 
+            })
+            .catch((error) => {
+                console.error('Lỗi khi chỉnh sửa bài đăng:', error);
+            });
+        });
+
+    </script>
+</body>
+
+</html>

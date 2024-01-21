@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng nhập và Đăng ký</title>
+</head>
+
+<body>
+    <h1>Đăng nhập và Đăng ký</h1>
+
+    <!-- Biểu mẫu đăng nhập -->
+    <h2>Đăng nhập</h2>
+    <form id="login-form">
+        <input type="email" id="login-email" placeholder="Email">
+        <input type="password" id="login-password" placeholder="Mật khẩu">
+        <button type="submit">Đăng nhập</button>
+    </form>
+
+    <h2>Đăng ký</h2>
+    <form id="signup-form">
+        <input type="email" id="signup-email" placeholder="Email">
+        <input type="password" id="signup-password" placeholder="Mật khẩu">
+        <button type="submit">Đăng ký</button>
+    </form>
+
+    <!-- Hiển thị lỗi (nếu có) -->
+    <div id="error-message"></div>
+
+    <!-- JavaScript -->
+    <script src="config.js"></script>
+    <script type="module">
+        // Cấu hình Firebase
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.2/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.5.2/firebase-analytics.js";
+        import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'https://www.gstatic.com/firebasejs/10.5.2/firebase-auth.js';
+        // Khởi tạo ứng dụng Firebase
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+
+        // Lắng nghe sự kiện gửi biểu mẫu đăng nhập
+        var loginForm = document.getElementById('login-form');
+        loginForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+            var email = document.getElementById('login-email').value;
+            var password = document.getElementById('login-password').value;
+            var errorMessage = document.getElementById('error-message');
+
+            // Đăng nhập bằng Firebase Auth
+            signInWithEmailAndPassword(getAuth(), email, password)
+                .then(function (userCredential) {
+                    // Đăng nhập thành công
+                    var user = userCredential.user;
+                    alert('Đăng nhập thành công: ' + user.email)
+                    console.log('Đăng nhập thành công: ' + user.email);
+                    window.location.href = 'main.html'; // Chuyển hướng sau khi đăng nhập
+                })
+                .catch(function (error) {
+                    // Xử lý lỗi đăng nhập
+                    var errorCode = error.code;
+                    var errorMessage = error.message;
+                    console.log('Lỗi đăng nhập: ' + errorMessage);
+                    // errorMessage.textContent = errorMessage;
+                });
+        });
+
+        // Lắng nghe sự kiện gửi biểu mẫu đăng ký
+        var signupForm = document.getElementById('signup-form');
+        signupForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+            var email = document.getElementById('signup-email').value;
+            var password = document.getElementById('signup-password').value;
+            var errorMessage = document.getElementById('error-message');
+            
+            // Đăng ký bằng Firebase Auth
+            createUserWithEmailAndPassword(getAuth(), email, password)
+                .then(function (userCredential) {
+                    // Đăng ký thành công
+                    var user = userCredential.user;
+                    console.log('Đăng ký thành công: ' + user.email);
+                    window.location.href = '#'; // Chuyển hướng sau khi đăng ký
+                })
+                .catch(function (error) {
+                    // Xử lý lỗi đăng ký
+                    var errorCode = error.code;
+                    var errorMessage = error.message;
+                    // console.log('Lỗi đăng ký: ' + errorMessage);
+                    // errorMessage.textContent = errorMessage;
+                });
+        });
+    </script>
+</body>
+</html>
